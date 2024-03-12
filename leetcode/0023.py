@@ -1,3 +1,4 @@
+import heapq
 from typing import Optional, List
 
 
@@ -9,27 +10,21 @@ class ListNode:
 
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        m = len(lists)
-        if m == 0:
-            return None
-        if m == 1:
-            return lists[0]
+        setattr(ListNode, "__lt__", lambda self, other: self.val < other.val)
 
-        list1 = self.mergeKLists(lists[: m // 2])
-        list2 = self.mergeKLists(lists[m // 2:])
-        return self.mergeTwoLists(list1, list2)
+        h = []
+        for node in lists:
+            if node:
+                heapq.heappush(h, node)
 
-    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]):
         curr = dummy = ListNode()
-
-        while list1 and list2:
-            if list1.val < list2.val:
-                curr.next = list1
-                list1 = list1.next
-            else:
-                curr.next = list2
-                list2 = list2.next
+        while h:
+            node = heapq.heappop(h)
+            curr.next = ListNode(node.val)
             curr = curr.next
 
-        curr.next = list1 if list1 else list2
+            node = node.next
+            if node:
+                heapq.heappush(h, node)
+
         return dummy.next
