@@ -3,17 +3,9 @@ from typing import List
 
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        result = float("-inf")
+        dp = [0] * len(nums)
+        dp[0] = nums[0]
 
-        prefixSum = [0]
-        for num in nums:
-            prefixSum.append(prefixSum[-1] + num)
-
-        prefixMin = [0]
-        for i in range(1, len(prefixSum)):
-            prefixMin.append(min(prefixMin[i - 1], prefixSum[i]))
-
-        for i in range(1, len(prefixSum)):
-            result = max(result, prefixSum[i] - prefixMin[i - 1])
-
-        return result
+        for i in range(1, len(nums)):
+            dp[i] = max(dp[i - 1], 0) + nums[i]
+        return max(dp)
