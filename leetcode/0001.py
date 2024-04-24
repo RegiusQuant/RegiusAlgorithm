@@ -4,7 +4,8 @@ from typing import List
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         table = {}
-        for i, x in enumerate(nums):
-            if (target - x) in table:
-                return [table[target - x], i]
-            table[x] = i
+        for i, num in enumerate(nums):
+            if target - num in table:
+                return [table[target - num], i]
+            table[num] = i
+        return []
