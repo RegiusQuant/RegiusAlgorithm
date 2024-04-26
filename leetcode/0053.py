@@ -3,9 +3,11 @@ from typing import List
 
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        dp = [0] * len(nums)
-        dp[0] = nums[0]
+        result = max(nums)
 
-        for i in range(1, len(nums)):
-            dp[i] = max(dp[i - 1], 0) + nums[i]
-        return max(dp)
+        currSum = 0
+        for num in nums:
+            currSum = max(0, currSum) + num
+            result = max(result, currSum)
+
+        return result

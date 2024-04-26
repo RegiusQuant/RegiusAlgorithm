@@ -7,10 +7,11 @@ class Solution:
         result = []
 
         queue = deque()
-        for i, x in enumerate(nums):
-            while queue and queue[0] <= i - k:
+        for i, num in enumerate(nums):
+            while queue and i - queue[0] >= k:
                 queue.popleft()
-            while queue and nums[queue[-1]] < x:
+
+            while queue and nums[queue[-1]] < num:
                 queue.pop()
             queue.append(i)
 

@@ -7,12 +7,12 @@ class Solution:
 
         intervals.sort()
         left, right = intervals[0]
-        for i in range(1, len(intervals)):
-            if intervals[i][0] > right:
+        for interval in intervals:
+            if interval[0] > right:
                 result.append([left, right])
-                left, right = intervals[i]
+                left, right = interval
             else:
-                right = max(right, intervals[i][1])
+                right = max(right, interval[1])
         result.append([left, right])
 
         return result
