@@ -9,10 +9,10 @@ class ListNode:
 
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
-        fast = head
-        while fast and fast.next:
-            fast = fast.next.next
-            head = head.next
-            if fast == head:
+        slowPtr, fastPtr = head, head
+        while fastPtr and fastPtr.next:
+            slowPtr = slowPtr.next
+            fastPtr = fastPtr.next.next
+            if slowPtr == fastPtr:
                 return True
         return False
