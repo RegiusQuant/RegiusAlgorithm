@@ -9,15 +9,17 @@ class ListNode:
 
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        dummy = ListNode()
-        curr = dummy
+        dummyNode = ListNode()
+        currPtr = dummyNode
+
         while list1 and list2:
-            if list1.val <= list2.val:
-                curr.next = list1
+            if list1.val < list2.val:
+                currPtr.next = list1
                 list1 = list1.next
             else:
-                curr.next = list2
+                currPtr.next = list2
                 list2 = list2.next
-            curr = curr.next
-        curr.next = list1 if list1 else list2
-        return dummy.next
+            currPtr = currPtr.next
+
+        currPtr.next = list1 if list1 else list2
+        return dummyNode.next

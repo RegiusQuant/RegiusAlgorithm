@@ -9,13 +9,13 @@ class ListNode:
 
 class Solution:
     def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        fast, slow = head, head
-        while fast and fast.next:
-            fast = fast.next.next
-            slow = slow.next
-            if fast == slow:
-                while head != slow:
-                    head = head.next
-                    slow = slow.next
-                return head
+        slowPtr, fastPtr = head, head
+        while fastPtr and fastPtr.next:
+            slowPtr = slowPtr.next
+            fastPtr = fastPtr.next.next
+            if slowPtr == fastPtr:
+                currPtr = head
+                while currPtr != slowPtr:
+                    currPtr, slowPtr = currPtr.next, slowPtr.next
+                return currPtr
         return None
