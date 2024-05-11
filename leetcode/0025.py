@@ -9,22 +9,21 @@ class ListNode:
 
 class Solution:
     def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
-        dummy = ListNode(0, head)
-        last = dummy
+        dummy = last = ListNode(0, head)
 
         while head:
             tail = self.getGroupTail(head, k)
             if tail is None:
                 break
-            
-            temp = tail.next
-            self.reverseList(head, temp)
-            
+
+            stop = tail.next
+            self.reverseList(head, stop)
+
             last.next = tail
-            head.next = temp
+            head.next = stop
 
             last = head
-            head = temp
+            head = stop
 
         return dummy.next
 
